@@ -1,3 +1,3 @@
 <?php
-	require('VIEWS/skel.phtml');
+	require('views/skel.phtml');
 ?>

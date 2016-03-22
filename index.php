@@ -5,33 +5,33 @@
 // var_dump($_SESSION);
 // exit;
 
-spl_autoload_register(function($class)
-{
-    $accessClass = [
-    	'User' => 'MODULE/USER/MODEL/'.$class.'.class.php',
-    	'UserManager' => 'MODULE/USER/MODEL/'.$class.'.class.php', 
-    	'Message' => 'MODULE/MESSAGE/MODEL/'.$class.'.class.php',
-    	'MessageManager' => 'MODULE/MESSAGE/MODEL/'.$class.'.class.php', 
-    ];
-    require($accessClass[$class]);
-});
+// spl_autoload_register(function($class)
+// {
+//     $accessClass = [
+//     	'User' => 'MODULE/USER/MODEL/'.$class.'.class.php',
+//     	'UserManager' => 'MODULE/USER/MODEL/'.$class.'.class.php', 
+//     	'Message' => 'MODULE/MESSAGE/MODEL/'.$class.'.class.php',
+//     	'MessageManager' => 'MODULE/MESSAGE/MODEL/'.$class.'.class.php', 
+//     ];
+//     require($accessClass[$class]);
+// });
 
 session_start();
 
 
-require('APPS/listeErrors.php');
-require('config.php');
+// require('APPS/listeErrors.php');
+// require('config.php');
 
-try
-{
-    $db = new PDO('mysql:dbname='.$config['bdd'].';host='.$config['host'], $config['login'], $config['password']);
-}
-catch (PDOException $e)
-{
-	require('VIEWS/errors500.phtml');
-	die();
-	// $_GET['page'] = 'errors';
-}
+// try
+// {
+//     $db = new PDO('mysql:dbname='.$config['bdd'].';host='.$config['host'], $config['login'], $config['password']);
+// }
+// catch (PDOException $e)
+// {
+// 	require('VIEWS/errors500.phtml');
+// 	die();
+// 	// $_GET['page'] = 'errors';
+// }
 
 if (isset($_SESSION['id']))
 {
@@ -45,7 +45,7 @@ if (isset($_SESSION['id']))
 else
 {
 	$page = 'home';
-	$access = ['home'];
+	$access = [ 'home' , 'accueil', 'concept' , 'contact' ];
 	$ajax = [];
 }
 if (isset($_GET['page']))
@@ -76,12 +76,12 @@ if (isset($_POST['action']))
 	if (isset($traitement_action[$action])) 
 	{
 		$value = $traitement_action[$action];
-		require('APPS/traitement'.$value.'.php');
+		require('apps/traitement'.$value.'.php');
 	}
 }
 
 if (!isset($_GET['ajax']))
-	require('APPS/skel.php');
+	require('apps/skel.php');
 else
 	require($page);
 
